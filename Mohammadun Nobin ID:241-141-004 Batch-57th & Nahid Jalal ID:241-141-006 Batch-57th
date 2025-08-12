@@ -1,0 +1,35 @@
+import math
+
+# Input crystal structure
+crystal = input("Enter crystal structure (BCC or FCC): ").strip().upper()
+
+if crystal not in ['BCC', 'FCC']:
+    print("Invalid crystal structure! Please enter BCC or FCC.")
+    exit()
+
+# Input density (kg/m³) and atomic mass (kg/mol)
+density = float(input("Enter density (kg/m³): "))
+atomic_mass = float(input("Enter atomic mass (kg/mol): "))
+
+# Avogadro's number
+NA = 6.022e23  # atoms/mol
+
+# Number of atoms per unit cell
+n = 2 if crystal == 'BCC' else 4
+
+# Lattice parameter (a)
+a = ((n * atomic_mass) / (density * NA)) ** (1/3)
+
+# Atomic radius (R)
+if crystal == 'BCC':
+    R = (math.sqrt(3) * a) / 4
+else:  # FCC
+    R = (math.sqrt(2) * a) / 4
+
+# Atomic concentration (atoms/cm³)
+conc_cm3 = (density * NA) / atomic_mass / 1e6
+
+# Output results
+print(f"\nLattice parameter (a): {a:.6e} meters")
+print(f"Atomic radius (R): {R:.6e} meters")
+print(f"Atomic concentration: {conc_cm3:.3e} atoms/cm³")
